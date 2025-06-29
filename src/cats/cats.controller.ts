@@ -16,6 +16,6 @@ export class CatsController {
   findAll(): Cat[] {
     const cats = this.catsService.findAll();
 
-    return cats as Cat[];
+    return cats;
   }
 }
