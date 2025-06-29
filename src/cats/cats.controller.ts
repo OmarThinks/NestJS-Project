@@ -1,4 +1,11 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
@@ -6,6 +13,12 @@ import { Cat } from './interfaces/cat.interface';
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    const cat = this.catsService.findOne(id);
+    return cat;
+  }
 
   @Post()
   create(@Body() createCatDto: CreateCatDto) {
