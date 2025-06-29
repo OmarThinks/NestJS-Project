@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   ParseUUIDPipe,
   UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateCatDto, createCatSchema } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
@@ -37,8 +38,11 @@ export class CatsController {
 
   @Post()
   @UsePipes(new ZodValidationPipe(createCatSchema))
-  create(@Body() createCatDto: CreateCatDto) {
+  create(@Body(new ValidationPipe()) createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
+
+    console.log('createCatDto:', createCatDto);
+    return createCatDto;
   }
 
   @Get()
