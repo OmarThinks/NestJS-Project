@@ -3,9 +3,9 @@ import { IsString, IsInt } from 'class-validator';
 
 export const createCatSchema = z
   .object({
-    name: z.string(),
-    age: z.number().min(2, 'Age must be at least 2'),
-    breed: z.string(),
+    name: z.string({ coerce: true }),
+    age: z.number({ coerce: true }).min(2, 'Age must be at least 2'),
+    breed: z.string({ coerce: true }),
   })
   .required();
 
